@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "visual-explainer",
+      "name": "VisualExplainer",
       "source": "./plugins/visual-explainer",
       "description": "Generate beautiful HTML pages for diagrams, diff reviews, plan reviews, slides, and data tables",
       "version": "0.7.1",

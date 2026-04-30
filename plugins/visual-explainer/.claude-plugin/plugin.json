@@ -1,5 +1,5 @@
 {
-  "name": "visual-explainer",
+  "name": "VisualExplainer",
   "description": "Generate beautiful HTML pages for diagrams, diff reviews, plan reviews, slides, and data tables",
   "version": "0.7.1",
   "author": {
