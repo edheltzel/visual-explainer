@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Share Visual Explainer HTML via Vercel
+# Share Visual Explainer HTML via Vercel CLI
 # Usage: ./share.sh <html-file>
-# Returns: Live URL instantly (no auth required)
+# Requires: vercel CLI on PATH, authenticated session (`vercel login`)
 
 set -e
 
@@ -24,49 +24,43 @@ if [ ! -f "$HTML_FILE" ]; then
     exit 1
 fi
 
-# Find vercel-deploy skill
-VERCEL_SCRIPT=""
-for dir in ~/.pi/agent/skills/vercel-deploy/scripts /mnt/skills/user/vercel-deploy/scripts; do
-    if [ -f "$dir/deploy.sh" ]; then
-        VERCEL_SCRIPT="$dir/deploy.sh"
-        break
-    fi
-done
-
-if [ -z "$VERCEL_SCRIPT" ]; then
-    echo -e "${RED}Error: vercel-deploy skill not found${NC}" >&2
-    echo "Install it with: pi install npm:vercel-deploy" >&2
+if ! command -v vercel >/dev/null 2>&1; then
+    echo -e "${RED}Error: vercel CLI not found on PATH${NC}" >&2
+    echo "Install: npm i -g vercel    (or: bun add -g vercel)" >&2
     exit 1
 fi
 
-# Create temp directory with index.html
+if ! vercel whoami >/dev/null 2>&1; then
+    echo -e "${RED}Error: not authenticated with Vercel${NC}" >&2
+    echo "Run: vercel login" >&2
+    exit 1
+fi
+
 TEMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TEMP_DIR"' EXIT
 
-# Copy file as index.html (Vercel serves index.html at root)
-cp "$HTML_FILE" "$TEMP_DIR/index.html"
+# Use a stable subdir name so Vercel derives a clean project name from it
+DEPLOY_DIR="$TEMP_DIR/visual-explainer"
+mkdir -p "$DEPLOY_DIR"
+cp "$HTML_FILE" "$DEPLOY_DIR/index.html"
 
-echo -e "${CYAN}Sharing $(basename "$HTML_FILE")...${NC}" >&2
+echo -e "${CYAN}Sharing $(basename "$HTML_FILE") via Vercel...${NC}" >&2
 
-# Deploy via vercel-deploy skill
-# Temporarily disable errexit to capture deployment errors
 set +e
-RESULT=$(bash "$VERCEL_SCRIPT" "$TEMP_DIR" 2>&1)
+RESULT=$(cd "$DEPLOY_DIR" && vercel deploy --yes 2>&1)
 DEPLOY_EXIT=$?
 set -e
 
 if [ $DEPLOY_EXIT -ne 0 ]; then
-    echo -e "${RED}Error: Deployment failed${NC}" >&2
+    echo -e "${RED}Error: vercel deploy failed${NC}" >&2
     echo "$RESULT" >&2
     exit 1
 fi
 
-# Extract preview URL
-PREVIEW_URL=$(echo "$RESULT" | grep -oE 'https://[^"]+\.vercel\.app' | head -1)
-CLAIM_URL=$(echo "$RESULT" | grep -oE 'https://vercel\.com/claim-deployment[^"]+' | head -1)
+PREVIEW_URL=$(echo "$RESULT" | grep -oE 'https://[a-zA-Z0-9.-]+\.vercel\.app' | head -1)
 
 if [ -z "$PREVIEW_URL" ]; then
-    echo -e "${RED}Error: Deployment failed${NC}" >&2
+    echo -e "${RED}Error: could not parse preview URL from vercel output${NC}" >&2
     echo "$RESULT" >&2
     exit 1
 fi
@@ -75,8 +69,7 @@ echo "" >&2
 echo -e "${GREEN}✓ Shared successfully!${NC}" >&2
 echo "" >&2
 echo -e "${GREEN}Live URL:  ${PREVIEW_URL}${NC}" >&2
-echo -e "${CYAN}Claim URL: ${CLAIM_URL}${NC}" >&2
 echo "" >&2
 
-# Output JSON for programmatic use (extract from vercel-deploy output)
-echo "$RESULT" | grep -E '^\{' | head -1
+# JSON for programmatic callers
+printf '{"previewUrl":"%s"}\n' "$PREVIEW_URL"
