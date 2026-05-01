@@ -29,7 +29,7 @@
     "mermaid"
   ],
   "files": [
-    "plugins/visual-explainer",
+    "plugins/VisualExplainer",
     ".claude-plugin",
     "configs",
     "install-pi.sh",
@@ -39,10 +39,10 @@
   ],
   "pi": {
     "skills": [
-      "./plugins/visual-explainer"
+      "./plugins/VisualExplainer"
     ],
     "prompts": [
-      "./plugins/visual-explainer/commands"
+      "./plugins/VisualExplainer/commands"
     ]
   }
 }
