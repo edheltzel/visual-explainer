@@ -7,7 +7,7 @@ SKILL_DIR="$HOME/.pi/agent/skills/VisualExplainer"
 PROMPTS_DIR="$HOME/.pi/agent/prompts"
 
 # Check if we're in the repo or need to clone
-if [ ! -f "plugins/VisualExplainer/SKILL.md" ]; then
+if [ ! -f "plugins/VisualExplainer/skills/visual-explainer/SKILL.md" ]; then
   echo "Cloning VisualExplainer..."
   TEMP_DIR=$(mktemp -d)
   git clone --depth 1 https://github.com/edheltzel/visual-explainer.git "$TEMP_DIR"
@@ -17,15 +17,17 @@ else
   CLEANUP=false
 fi
 
-# Copy skill
+# Copy skill (Pi expects SKILL.md at the skill dir root)
 echo "Installing skill to $SKILL_DIR..."
 rm -rf "$SKILL_DIR"
-cp -r plugins/VisualExplainer "$SKILL_DIR"
+mkdir -p "$SKILL_DIR"
+cp -r plugins/VisualExplainer/skills/visual-explainer/. "$SKILL_DIR/"
+cp -r plugins/VisualExplainer/commands "$SKILL_DIR/commands"
 
 # Copy prompts (slash commands)
 echo "Installing prompts to $PROMPTS_DIR..."
 mkdir -p "$PROMPTS_DIR"
-cp "$SKILL_DIR/commands/"*.md "$PROMPTS_DIR/"
+cp plugins/VisualExplainer/commands/*.md "$PROMPTS_DIR/"
 
 # Cleanup if we cloned
 if [ "$CLEANUP" = true ]; then
