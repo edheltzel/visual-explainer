@@ -1,10 +1,10 @@
 {
   "name": "visual-explainer-marketplace",
   "owner": {
-    "name": "nicobailon"
+    "name": "edheltzel"
   },
   "metadata": {
-    "description": "Plugin distribution for visual-explainer",
+    "description": "Plugin distribution for VisualExplainer",
     "version": "0.7.1",
     "pluginRoot": "./plugins"
   },
@@ -15,25 +15,13 @@
       "description": "Generate beautiful HTML pages for diagrams, diff reviews, plan reviews, slides, and data tables",
       "version": "0.7.1",
       "author": {
-        "name": "nicobailon"
+        "name": "edheltzel"
       },
-      "repository": "https://github.com/nicobailon/visual-explainer",
+      "repository": "https://github.com/edheltzel/visual-explainer",
       "license": "MIT",
-      "keywords": [
-        "diagrams",
-        "html",
-        "visualization",
-        "diff-review",
-        "slides"
-      ],
+      "keywords": ["diagrams", "html", "visualization", "diff-review", "slides"],
       "category": "visualization",
-      "tags": [
-        "diagrams",
-        "html-generation",
-        "code-review",
-        "slides",
-        "mermaid"
-      ]
+      "tags": ["diagrams", "html-generation", "code-review", "slides", "mermaid"]
     }
   ]
 }

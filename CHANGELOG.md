@@ -3,14 +3,14 @@
 ## [0.7.1] - 2026-04-27
 
 ### Compatibility
-- Added first-class Pi package metadata so `pi install` can load the canonical `plugins/visual-explainer/` skill and command templates directly from the repo.
+- Added first-class Pi package metadata so `pi install` can load the canonical `plugins/VisualExplainer/` skill and command templates directly from the repo.
 - Preserved the Claude Code marketplace layout while synchronizing package and plugin manifest versions to `0.7.1`.
 - Added lightweight harness guidance for Pi, Codex CLI, OpenCode/opencode, Cursor, and OpenClaw without duplicating skill directories or adding runtime adapters.
 - Documented migration cleanup for older manual Pi installs, which can otherwise shadow package resources with copied user-level skill and prompt files.
 
 ### Changed
 - Completed the hard cutover from `/share` to `/share-page` by removing the deprecated command template and updating docs and installer output.
-- Removed `{{skill_dir}}` placeholders from canonical skill docs; share instructions now resolve `share.sh` from the installed `visual-explainer` skill directory.
+- Removed `{{skill_dir}}` placeholders from canonical skill docs; share instructions now resolve `share.sh` from the installed `VisualExplainer` skill directory.
 - Made `pi install` the primary Pi installation path while keeping the legacy installer documented as an explicit copied-file alternative.
 
 ## [0.6.3] - 2026-03-09
@@ -28,7 +28,7 @@
 ### Pi Install Script
 - New `install-pi.sh` for one-command installation
 - Automatically patches `{{skill_dir}}` to actual install path
-- Usage: `curl -fsSL https://raw.githubusercontent.com/nicobailon/visual-explainer/main/install-pi.sh | bash`
+- Usage: `curl -fsSL https://raw.githubusercontent.com/edheltzel/VisualExplainer/main/install-pi.sh | bash`
 
 ## [0.6.0] - 2026-03-08
 
@@ -59,10 +59,10 @@ Based on PR #25 by [@peak-flow](https://github.com/peak-flow), with additional m
 
 ### Claude Code Marketplace Structure
 - Restructured repo to follow Claude Code's official plugin marketplace spec
-- Moved all skill files into `plugins/visual-explainer/` subdirectory
+- Moved all skill files into `plugins/VisualExplainer/` subdirectory
 - Added `.claude-plugin/marketplace.json` catalog for marketplace discovery
-- Plugin manifest now at `plugins/visual-explainer/.claude-plugin/plugin.json`
-- Install via marketplace: `/plugin marketplace add nicobailon/visual-explainer` then `/plugin install visual-explainer@visual-explainer-marketplace`
+- Plugin manifest now at `plugins/VisualExplainer/.claude-plugin/plugin.json`
+- Install via marketplace: `/plugin marketplace add edheltzel/VisualExplainer` then `/plugin install VisualExplainer@VisualExplainer-marketplace`
 
 ### Pi Manual Install
 - Replaced `pi install` one-liner with manual installation instructions
@@ -71,12 +71,12 @@ Based on PR #25 by [@peak-flow](https://github.com/peak-flow), with additional m
 
 ### OpenAI Codex Install Fix
 - Fixed prompts path: `~/.codex/prompts/` (was incorrectly `~/.agents/commands/`)
-- Prompts are optional (deprecated feature) — skill works without them via `$visual-explainer`
+- Prompts are optional (deprecated feature) — skill works without them via `$VisualExplainer`
 - With prompts installed, invoke as `/prompts:diff-review`, `/prompts:plan-review`, etc.
 
 ### Breaking Changes
 - Direct Claude Code plugin install (`/plugin install https://...`) no longer works — use marketplace flow instead
-- `pi install https://github.com/nicobailon/visual-explainer` no longer works — use manual install
+- `pi install https://github.com/edheltzel/VisualExplainer` no longer works — use manual install
 
 ## [0.5.0] - 2026-03-04
 
@@ -90,8 +90,8 @@ Based on PR #25 by [@peak-flow](https://github.com/peak-flow), with additional m
 ### Claude Code Plugin Support
 - Added `.claude-plugin/plugin.json` manifest for Claude Code plugin installation
 - Renamed `prompts/` to `commands/` (compatible with both pi and Claude Code)
-- Claude Code: `claude /plugin install https://github.com/nicobailon/visual-explainer`
-- Note: Claude Code namespaces commands as `/visual-explainer:command-name`
+- Claude Code: `claude /plugin install https://github.com/edheltzel/VisualExplainer`
+- Note: Claude Code namespaces commands as `/VisualExplainer:command-name`
 
 ### OpenAI Codex Support
 - Added install instructions for OpenAI Codex to README

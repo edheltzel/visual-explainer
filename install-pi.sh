@@ -3,24 +3,24 @@
 
 set -e
 
-SKILL_DIR="$HOME/.pi/agent/skills/visual-explainer"
+SKILL_DIR="$HOME/.pi/agent/skills/VisualExplainer"
 PROMPTS_DIR="$HOME/.pi/agent/prompts"
 
 # Check if we're in the repo or need to clone
-if [ ! -f "plugins/visual-explainer/SKILL.md" ]; then
-    echo "Cloning visual-explainer..."
-    TEMP_DIR=$(mktemp -d)
-    git clone --depth 1 https://github.com/nicobailon/visual-explainer.git "$TEMP_DIR"
-    cd "$TEMP_DIR"
-    CLEANUP=true
+if [ ! -f "plugins/VisualExplainer/SKILL.md" ]; then
+  echo "Cloning VisualExplainer..."
+  TEMP_DIR=$(mktemp -d)
+  git clone --depth 1 https://github.com/edheltzel/visual-explainer.git "$TEMP_DIR"
+  cd "$TEMP_DIR"
+  CLEANUP=true
 else
-    CLEANUP=false
+  CLEANUP=false
 fi
 
 # Copy skill
 echo "Installing skill to $SKILL_DIR..."
 rm -rf "$SKILL_DIR"
-cp -r plugins/visual-explainer "$SKILL_DIR"
+cp -r plugins/VisualExplainer "$SKILL_DIR"
 
 # Copy prompts (slash commands)
 echo "Installing prompts to $PROMPTS_DIR..."
@@ -29,11 +29,11 @@ cp "$SKILL_DIR/commands/"*.md "$PROMPTS_DIR/"
 
 # Cleanup if we cloned
 if [ "$CLEANUP" = true ]; then
-    rm -rf "$TEMP_DIR"
+  rm -rf "$TEMP_DIR"
 fi
 
 echo ""
-echo "Done! Restart pi to use visual-explainer."
+echo "Done! Restart pi to use VisualExplainer."
 echo ""
 echo "Commands available:"
 echo "  /diff-review, /plan-review, /project-recap, /fact-check"

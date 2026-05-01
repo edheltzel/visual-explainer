@@ -3,9 +3,9 @@
   "description": "Generate beautiful HTML pages for diagrams, diff reviews, plan reviews, slides, and data tables",
   "version": "0.7.1",
   "author": {
-    "name": "nicobailon"
+    "name": "edheltzel"
   },
-  "repository": "https://github.com/nicobailon/visual-explainer",
+  "repository": "https://github.com/edheltzel/visual-explainer",
   "license": "MIT",
   "skills": ["./"]
 }

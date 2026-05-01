@@ -1,6 +1,7 @@
 ---
-description: Deploy a generated visual-explainer HTML page and return a live Vercel URL
+description: Deploy a generated VisualExplainer HTML page and return a live Vercel URL
 ---
+
 # Share Visual Explainer Page
 
 Share a visual explainer HTML file via Vercel. Returns a live URL deployed under your Vercel account using the Vercel CLI.
@@ -12,12 +13,14 @@ Share a visual explainer HTML file via Vercel. Returns a live URL deployed under
 ```
 
 **Arguments:**
+
 - `file-path` - Path to the HTML file to share (required)
 
 **Examples:**
+
 ```
 /share-page ~/.agent/diagrams/my-diagram.html
-/share-page /tmp/visual-explainer-output.html
+/share-page /tmp/VisualExplainer-output.html
 ```
 
 ## How It Works
@@ -38,10 +41,10 @@ Deployments land in your own Vercel account, so no claim step is needed.
 Resolve the script from the installed skill directory, then run it with the HTML file path:
 
 ```bash
-bash ~/.claude/plugins/cache/visual-explainer-marketplace/visual-explainer/<version>/scripts/share.sh <file>
+bash ~/.claude/plugins/cache/VisualExplainer-marketplace/VisualExplainer/<version>/scripts/share.sh <file>
 ```
 
-Common alternatives include `~/.codex/skills/visual-explainer/scripts/share.sh`, `~/.config/opencode/skill/visual-explainer/scripts/share.sh`, or `./plugins/visual-explainer/scripts/share.sh` from a repository checkout.
+Common alternatives include `~/.codex/skills/VisualExplainer/scripts/share.sh`, `~/.config/opencode/skill/VisualExplainer/scripts/share.sh`, or `./plugins/VisualExplainer/scripts/share.sh` from a repository checkout.
 
 ## Output
 
@@ -50,12 +53,13 @@ Sharing my-diagram.html via Vercel...
 
 ✓ Shared successfully!
 
-Live URL:  https://visual-explainer-abc123.vercel.app
+Live URL:  https://visualexplainer-abc123.vercel.app
 ```
 
 The script also outputs JSON for programmatic use:
+
 ```json
-{"previewUrl":"https://..."}
+{ "previewUrl": "https://..." }
 ```
 
 ## Notes
